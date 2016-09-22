@@ -5,6 +5,11 @@
     <title>{% block title %} Bienvenido a WordGeek - El blog para geeks{% endblock %}</title>
 </head>
 <body>
+    <header class="app-header">
+        <nav class="app-menu">
+            {% include 'includes/menu.html' %}
+        </nav>
+    </header>
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
