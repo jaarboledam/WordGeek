@@ -14,15 +14,20 @@ class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
     description = models.TextField(max_length=250, null=True, blank=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Post(models.Model):
     title = models.CharField(max_length=150)
     intro = models.TextField(max_length=300, null=True, blank=True)
     body = models.TextField()
-    media_url = models.URLField()
-    category = models.ManyToManyField(Category)
+    media_url = models.URLField(null=True, blank=True)
+    category = models.ForeignKey(Category, to_field='name')
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     owner = models.ForeignKey(User)
     visibility = models.CharField(max_length=3, choices=VISIBILITY, default=VISIBILITY_PUBLIC)
 
+    def __str__(self):
+        return self.title
