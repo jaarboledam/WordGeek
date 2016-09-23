@@ -12,7 +12,7 @@ class LoginForm(ModelForm):
         }
 
 
-class RegisterForm(ModelForm):
+class SignUpForm(ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email', 'username', 'password']

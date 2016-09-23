@@ -23,7 +23,7 @@ class Post(models.Model):
     intro = models.TextField(max_length=300, null=True, blank=True)
     body = models.TextField()
     media_url = models.URLField(null=True, blank=True)
-    category = models.ForeignKey(Category, to_field='name')
+    category = models.ManyToManyField(Category)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     owner = models.ForeignKey(User)

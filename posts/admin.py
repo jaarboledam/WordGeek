@@ -9,10 +9,13 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'category', 'owner', 'created_at',)
+    list_display = ('title', 'get_categories', 'owner', 'created_at',)
     list_filter = ('category', 'owner',)
     search_fields = ('title', 'description', 'category', 'owner',)
 
+    def get_categories(self, post):
+        return ", ".join([category.name for category in post.category.all()])
+    get_categories.short_description = "Categories"
 
 admin.site.register(Post, PostAdmin)
 admin.site.register(Category, CategoryAdmin)
