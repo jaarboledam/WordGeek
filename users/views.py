@@ -1,6 +1,8 @@
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views import View
+from django.views.generic import ListView
 
 from users.forms import LoginForm
 
@@ -54,3 +56,10 @@ class LogoutView(View):
         if request.user.is_authenticated():
             django_logout(request)
         return redirect("post_home")
+
+
+class BlogsListView(ListView):
+
+    model = User
+    context_object_name = "blog_list"
+    template_name = "users/blogs_list.html"

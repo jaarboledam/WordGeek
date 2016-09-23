@@ -76,6 +76,20 @@ class PostCreationView(View):
         return render(request, 'posts/post_creation.html', context)
 
 
+class PostListView(View):
+
+    def get(self, request, username):
+        """
+        Renderiza el detalle de un post
+        :param request: objeto HttpRequest
+        :param username: nombre de usuario
+        :return: HttpResponse con la plantilla
+        """
+        queryset = PostQueryset.get_posts_by_user(request.user).filter(owner__username=username)
+        context = {'post_list': queryset}
+        return render(request, 'posts/post_list.html', context)
+
+
 class PostQueryset(object):
 
     @staticmethod
