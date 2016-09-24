@@ -28,6 +28,7 @@ class Post(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
     owner = models.ForeignKey(User)
     visibility = models.CharField(max_length=3, choices=VISIBILITY, default=VISIBILITY_PUBLIC)
+    publicate_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
