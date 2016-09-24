@@ -1,9 +1,9 @@
 from django.conf.urls import url
-from users.views import LoginView, LogoutView, BlogsListView
+from users.views import LoginView, LogoutView, BlogListView, SignUpView
 
 urlpatterns = [
     url(r'^login/$', LoginView.as_view(), name='user_login'),
-    url(r'^signup/$', LoginView.as_view(), name='user_signup'),
+    url(r'^signup/$', SignUpView.as_view(), name='user_sign_up'),
     url(r'^logout/$', LogoutView.as_view(), name='user_logout'),
-    url(r'^blogs/$', BlogsListView.as_view(), name='blog_list')
+    url(r'^blogs/$', BlogListView.as_view(), name='blog_list')
 ]

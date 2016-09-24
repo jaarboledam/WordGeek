@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %} Login {% endblock %}
+{% block title %} Sign-up {% endblock %}
 
 {% block body %}
-    {{ error }}
+    {{ message }}
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Iniciar sesión</button>
+        <button type="submit">Registrarse</button>
     </form>
 {% endblock %}

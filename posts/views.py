@@ -85,7 +85,7 @@ class PostListView(View):
         :param username: nombre de usuario
         :return: HttpResponse con la plantilla
         """
-        queryset = PostQueryset.get_posts_by_user(request.user).filter(owner__username=username)
+        queryset = PostQueryset.get_posts_by_user(request.user).filter(owner__username=username).order_by('-created_at')
         context = {'post_list': queryset}
         return render(request, 'posts/post_list.html', context)
 
