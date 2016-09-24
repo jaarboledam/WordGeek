@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'wordgeek',
     'posts',
     'users',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

@@ -1,3 +1,4 @@
+import datetime
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponse
@@ -96,7 +97,7 @@ class PostQueryset(object):
     def get_posts_by_user(user):
         post_queryset = Post.objects.all().select_related('owner')
         if not user.is_authenticated():
-            post_queryset = post_queryset.filter(visibility=VISIBILITY_PUBLIC)
+            post_queryset = post_queryset.filter(Q(visibility=VISIBILITY_PUBLIC) & Q(publicate_at__lte=datetime.datetime.now()))
         elif not user.is_superuser:
             post_queryset = post_queryset.filter(Q(visibility=VISIBILITY_PUBLIC) | Q(owner=user))
         return post_queryset
