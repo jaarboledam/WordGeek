@@ -1,5 +1,7 @@
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
