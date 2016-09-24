@@ -1,5 +1,7 @@
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
 from django.contrib.auth.models import User
+from django.contrib.auth.password_validation import validate_password, MinimumLengthValidator
+from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
@@ -86,13 +88,18 @@ class SignUpView(View):
             username = signup_form.cleaned_data.get('username')
             password = signup_form.cleaned_data.get('password')
 
-            user = User.objects.create_user(username, email, password)
-            user.first_name = name
-            user.last_name = last_name
-            user.save()
+            try:
+                validate_password(password, User)
+                user = User.objects.create_user(username, email, password)
+                user.first_name = name
+                user.last_name = last_name
+                user.save()
 
-            if user.is_authenticated:
-                return redirect(request.GET.get('next', reverse('post_list', args={user.username})))
+                if user.is_authenticated:
+                    return redirect(request.GET.get('next', reverse('post_list', args={user.username})))
+
+            except ValidationError as errors:
+                error_message = '\n'.join(errors)
 
         context = {'message': error_message, 'form': signup_form}
         return render(request, 'users/sign_up.html', context)
