@@ -5,7 +5,7 @@ from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_2
 from rest_framework.viewsets import ViewSet
 
 from users.permissions import UserPermission
-from users.serializers import UserSerializer, UserListSerializer
+from users.serializers import UserSerializer, UserListSerializer, BlogListSerializer
 
 
 class UserViewSet(ViewSet):
@@ -53,3 +53,18 @@ class UserViewSet(ViewSet):
         if request.user.is_superuser or (request.user.is_authenticated and user.pk == request.user.pk):
             user.delete()
         return Response(status=HTTP_204_NO_CONTENT)
+
+
+class BlogViewSet(ViewSet):
+
+    def get_queryset(self):
+        queryset = User.objects.all()
+        username = self.request.query_params.get('q', None)
+        if username is not None:
+            queryset = queryset.filter(username__contains=username).order_by('username')
+        return queryset
+
+    def list(self, request):
+        queryset = self.get_queryset()
+        serializer = BlogListSerializer(queryset, many=True)
+        return Response(serializer.data)

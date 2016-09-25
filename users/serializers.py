@@ -42,3 +42,7 @@ class UserSerializer(serializers.Serializer):
                 and User.objects.filter(email=email).exists():
             raise ValidationError("El e-mail {0} ya está siendo utilizado".format(email))
         return email.lower()
+
+
+class BlogListSerializer(serializers.Serializer):
+    username = serializers.CharField()
