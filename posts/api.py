@@ -6,6 +6,7 @@ from rest_framework.viewsets import ModelViewSet
 from posts.serializers import PostSerializer, PostListSerializer
 from posts.views import PostQueryset
 
+
 class PostViewSet(ModelViewSet):
 
     permission_classes = (IsAuthenticatedOrReadOnly,)

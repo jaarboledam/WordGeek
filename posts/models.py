@@ -1,3 +1,4 @@
+import datetime
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -28,7 +29,7 @@ class Post(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
     owner = models.ForeignKey(User)
     visibility = models.CharField(max_length=3, choices=VISIBILITY, default=VISIBILITY_PUBLIC)
-    publicate_at = models.DateTimeField()
+    publicate_at = models.DateTimeField(default=datetime.datetime.now())
 
     def __str__(self):
         return self.title
